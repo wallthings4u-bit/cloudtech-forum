@@ -1,0 +1,5 @@
+.enb
+*.log
+*.tmp
+*.db
+vendor/
