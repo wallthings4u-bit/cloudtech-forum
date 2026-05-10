@@ -35,4 +35,21 @@ func CreateHandler(w http.ResponseWriter, r *http.Request) {
 	// レスポンスを返却
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(response)
+
+}
+
+// indexハンドラ関数
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	// 検索処理の実行　SerchPostALL関数を呼び出し投稿一覧を取得
+	posts, err := repository.SerchPostALL()
+	if err != nil {
+		http.Error(w, "投稿データの検索に失敗しました", http.StatusInternalServerError)
+		return
+	}
+
+	//ステータスコードに[200 OK]を設定
+	w.WriteHeader(http.StatusOK)
+
+	// postsデータのスライスをレスポンスとして設定
+	json.NewEncoder(w).Encode(posts)
 }

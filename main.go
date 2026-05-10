@@ -44,9 +44,13 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/posts", handler.CreateHandler).Methods("POST")
 
+	// httpメソッドがGET pasthが/postsのリクエストを受け取ったときにIndexHandler関数を呼び出す
+	r.HandleFunc("/posts", handler.IndexHandler).Methods("GET")
+
 	// APIサーバを起動
 	log.Println("APIサーバを起動しました。ポート: " + apiport)
 	if err := http.ListenAndServe(":"+apiport, r); err != nil {
 		log.Fatal(err)
 	}
+
 }
