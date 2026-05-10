@@ -53,6 +53,9 @@ func main() {
 	// httpメソッドがPUT pathが/posts/idのリクエストを受け取ったときにUpdateHandler関数を呼び出す
 	r.HandleFunc("/posts/{id:[0-9]+}", handler.UpdateHandler).Methods("PUT")
 
+	// httpメソッドがDELETE pathが/posts/idのリクエストを受け取ったときにDeleteHandler関数を呼び出す
+	r.HandleFunc("/posts/{id:[0-9]+}", handler.DeleteHandler).Methods("DELETE")
+
 	// APIサーバを起動
 	log.Println("APIサーバを起動しました。ポート: " + apiport)
 	if err := http.ListenAndServe(":"+apiport, r); err != nil {
