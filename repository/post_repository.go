@@ -67,3 +67,26 @@ func SerchPostALL() ([]model.Post, error) {
 	// 投稿データの一覧を返却
 	return posts, nil
 }
+
+// 　投稿の詳細検索
+func SearchPost(id int) (model.Post, error) {
+	//　検索結果を格納する構造体を定義
+	var post model.Post
+
+	// SQLを定義
+	query := "SELECT id, content, user_id, created_at ,updated_at FROM posts WHERE id = ?"
+
+	// SELECTのSQLを実行
+	row := db.QueryRow(query, id)
+
+	//　読み込んだデータを、postの各フィールドに格納
+	err := row.Scan(&post.ID, &post.Content, &post.UserID, &post.CreateAT, &post.UpdateAT)
+	if err != nil {
+		// エラーログの出力
+		log.Printf("投稿の詳細検索に失敗しました: %v", err)
+		return model.Post{}, fmt.Errorf("投稿の詳細検索に失敗しました: %w", err)
+	}
+
+	//読み込んだ投稿データを返却
+	return post, nil
+}

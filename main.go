@@ -47,6 +47,9 @@ func main() {
 	// httpメソッドがGET pasthが/postsのリクエストを受け取ったときにIndexHandler関数を呼び出す
 	r.HandleFunc("/posts", handler.IndexHandler).Methods("GET")
 
+	// httpメソッドがGET pasthが/posts/idのリクエストを受け取ったときにShowHandler関数を呼び出す
+	r.HandleFunc("/posts/{id:[0-9]+}", handler.ShowHandler).Methods("GET")
+
 	// APIサーバを起動
 	log.Println("APIサーバを起動しました。ポート: " + apiport)
 	if err := http.ListenAndServe(":"+apiport, r); err != nil {

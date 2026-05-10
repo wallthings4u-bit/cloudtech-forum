@@ -14,7 +14,7 @@ var db *sql.DB
 func InitDB(user, password, host, port, dbname string) (err error) { // func に修正
 	// MySQLへの接続文字列を作成
 	dataSourceName := fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?parseTime=true", user, password, host, port, dbname)
+		"%s:%s@tcp(%s:%s)/%s?parseTime=true&charset=utf8mb4", user, password, host, port, dbname)
 
 	// MySQLに接続
 	db, err = sql.Open("mysql", dataSourceName)
